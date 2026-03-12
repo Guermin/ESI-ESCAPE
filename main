@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "estructuras.h"
 #include "ficheros.h"
 #include "logica.h"
-#include "interfaz.h"
 
 int main() {
 
