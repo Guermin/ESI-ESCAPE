@@ -1,6 +1,5 @@
-#ifndef LOGICAS_H
-#define LOGICAS_H
+#ifndef LOGICA_H
+#define LOGICA_H
+#include "partida.h"
 
-// Cabeceras de funciones del .c
-
-#endif 
+#endif
