@@ -6,7 +6,7 @@ Objeto objeto_crear(int id, const char *nombre, const char *descripcion) {
     Objeto nuevo_objeto;
     nuevo_objeto.id = id;
     
-    // Usamos strncpy para evitar desbordamientos de memoria (Buffer Overflow)
+    // Usamos strncpy para evitar desbordamientos de memoria.
     strncpy(nuevo_objeto.nombre, nombre, MAX_NOMBRE_OBJETO - 1);
     nuevo_objeto.nombre[MAX_NOMBRE_OBJETO - 1] = '\0';
     
