@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <ctype.h> 
 
 
 
@@ -264,3 +264,57 @@ void accion_usar_objeto(EstadoPartida *p) {
         } else printf("No lo tienes.\n");
     }
 }
+
+/* PRE:  'p' es un puntero válido.
+ * POST: Pide al usuario un ID de conexión y una respuesta de texto. Si la conexión tiene un puzle asociado y la respuesta coincide con la solución (ignorando mayúsculas), cambia el estado de la conexión a 'activa' y marca el puzle como resuelto.
+ */
+void accion_resolver_puzle(EstadoPartida *p) {
+    int id_con, exito = 0, i = 0;
+    Conexion *con = NULL; 
+    Puzzle *puz = NULL; 
+    char intento[MAX_SOLUCION];
+    
+    printf("Numero de conexion con puzle (ej: 1 para C01): ");
+    scanf("%d", &id_con); 
+    limpiar_buffer();
+    
+    con = partida_obtener_conexion(p, id_con);
+    
+    if (con == NULL) printf("Invalida.\n");
+    else if (con->id_sala_origen != p->jugador_actual.id_sala_actual) printf("No esta aqui.\n");
+    else if (con->activa == 1) printf("ABIERTA.\n");
+    else if (con->id_puzzle_necesario == -1) printf("Sin puzle.\n");
+    else {
+        puz = partida_obtener_puzzle(p, con->id_puzzle_necesario);
+        if (puz != NULL) {
+            printf("\n--- PUZLE [P%02d] ---\n%s\nTu solucion: ", puz->id, puz->pregunta);
+            if (fgets(intento, sizeof(intento), stdin) != NULL) {
+                intento[strcspn(intento, "\n")] = '\0'; 
+                intento[strcspn(intento, "\r")] = '\0';
+                
+                i = 0;
+                while (intento[i] != '\0') {
+                    intento[i] = toupper(intento[i]);
+                    i++;
+                }
+                
+                exito = puzzle_intentar_resolver(puz, intento);
+                if (exito == 1) {
+                    conexion_intentar_abrir_puzzle(con, puz->id);
+                    printf("CORRECTO. Conexion ABIERTA.\n");
+                } else printf("Incorrecto.\n");
+            }
+        }
+    }
+}
+
+/* PRE:  'p' es un puntero válido.
+ * POST: Verifica si la sala en la que se encuentra el jugador actualmente es del tipo SALIDA. Devuelve 1 si es así, o 0 en caso contrario.
+ */
+int comprobar_victoria(EstadoPartida *p) {
+    int victoria = 0;
+    Sala *s = partida_obtener_sala(p, p->jugador_actual.id_sala_actual);
+    if (s != NULL && s->tipo == SALIDA) victoria = 1;
+    return victoria;
+}
+
