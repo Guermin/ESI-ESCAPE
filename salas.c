@@ -3,24 +3,24 @@
 #include <string.h>
 
 
-Sala sala_crear(int id, const char *nombre, const char *descripcion, TipoSala tipo){
+Sala sala_crear(int id, const char *nombre, const char *descripcion, TipoSala tipo) {
     Sala nueva_sala;
-
+    int i;
+    
     nueva_sala.id = id;
-    nueva_sala.tipo = tipo; //Asignación de datos
-
-    strcpy(nueva_sala.nombre, nombre);
-    strcpy(nueva_sala.descripcion, descripcion);
-
-    for (int i = 0; i < MAX_OBJETOS_SALA; i++){
-        nueva_sala.id_objetos[i] = -1;
-    }
-
-    for (int i = 0; i < MAX_PUZZLES_SALA; i++){
-        nueva_sala.id_puzzles[i] = -1;
-    }
-
-    return nueva_sala;
+    nueva_sala.tipo = tipo;
+    
+    strncpy(nueva_sala.nombre, nombre, MAX_NOMBRE_SALA - 1);
+    nueva_sala.nombre[MAX_NOMBRE_SALA - 1] = '\0';
+    
+    strncpy(nueva_sala.descripcion, descripcion, MAX_DESC_SALA - 1);
+    nueva_sala.descripcion[MAX_DESC_SALA - 1] = '\0';
+    
+    // Inicializamos a -1 para indicar que ese hueco del suelo está vacío
+    for (i = 0; i < MAX_OBJETOS_SALA; i++) nueva_sala.id_objetos[i] = -1;
+    for (i = 0; i < MAX_PUZZLES_SALA; i++) nueva_sala.id_puzzles[i] = -1;
+    
+    return nueva_sala; 
 }
 
 
