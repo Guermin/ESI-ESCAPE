@@ -207,3 +207,126 @@ int cargar_conexiones(EstadoPartida *p) {
     }
     return exito;
 }
+
+
+int ficheros_cargar_todo(EstadoPartida *p) {
+    int exito_total = 0;
+    int s_ok, o_ok, p_ok, c_ok;
+    
+    printf("Procesando base de datos...\n");
+    s_ok = cargar_salas(p);
+    o_ok = cargar_objetos(p);
+    p_ok = cargar_puzzles(p);
+    c_ok = cargar_conexiones(p);
+    
+    if (s_ok == 1 && o_ok == 1 && p_ok == 1 && c_ok == 1) {
+        exito_total = 1;
+    }
+    return exito_total; 
+}
+
+int ficheros_guardar_partida(EstadoPartida *p) {
+    int exito = 0, i = 0, j = 0, encontrado = 0;
+    FILE *f = fopen("Partida.txt", "w"); 
+    
+    if (f != NULL) {
+        exito = 1;
+        fprintf(f, "JUGADOR: 01\n"); 
+        fprintf(f, "SALA: %02d\n", p->jugador_actual.id_sala_actual);
+        
+        while (i < p->num_objetos) {
+            if (jugador_tiene_objeto(p->jugador_actual, p->objetos[i].id) == 1) {
+                fprintf(f, "OBJETO: OB%02d-Inventario\n", p->objetos[i].id);
+            } else {
+                j = 0; encontrado = 0;
+                while (j < p->num_salas && encontrado == 0) {
+                    if (sala_tiene_objeto(p->salas[j], p->objetos[i].id) == 1) {
+                        fprintf(f, "OBJETO: OB%02d-%02d\n", p->objetos[i].id, p->salas[j].id);
+                        encontrado = 1;
+                    }
+                    j++;
+                }
+            }
+            i++;
+        }
+        
+        i = 0;
+        while (i < p->num_conexiones) {
+            fprintf(f, "CONEXIÓN: C%02d-%s\n", p->conexiones[i].id, p->conexiones[i].activa == 1 ? "Activa" : "Bloqueada");
+            i++;
+        }
+        
+        i = 0;
+        while (i < p->num_puzzles) {
+            fprintf(f, "PUZLE: P%02d-%s\n", p->puzzles[i].id, p->puzzles[i].resuelto == 1 ? "Resuelto" : "Pendiente");
+            i++;
+        }
+        
+        fclose(f);
+        printf("[SISTEMA]: Partida guardada en Partida.txt.\n");
+    }
+    return exito;
+}
+
+int ficheros_cargar_partida(EstadoPartida *p) {
+    int exito = 0;
+    FILE *f = fopen("Partida.txt", "r"); 
+    char linea[1000]; char *trozo = NULL;
+    int id_elemento = 0, i = 0, j = 0;
+    Sala *s = NULL; Conexion *con = NULL; Puzzle *puz = NULL;
+
+    if (f != NULL) {
+        exito = 1;
+        
+        // Vaciamos la mochila y el suelo de las salas de la partida base
+        p->jugador_actual.mochila.cantidad = 0;
+        for (i = 0; i < p->num_salas; i++) {
+            for (j = 0; j < MAX_OBJETOS_SALA; j++) 
+            p->salas[i].id_objetos[j] = -1;
+        }
+
+        while (fgets(linea, sizeof(linea), f) != NULL) {
+            linea[strcspn(linea, "\n")] = '\0';
+            linea[strcspn(linea, "\r")] = '\0';
+
+            if (strncmp(linea, "SALA:", 5) == 0) {
+                p->jugador_actual.id_sala_actual = extraer_numero(linea);
+            } 
+            else if (strncmp(linea, "OBJETO:", 7) == 0) {
+                id_elemento = extraer_numero(linea); 
+                
+                if (strstr(linea, "Inventario") != NULL) {
+                    jugador_recoger_objeto(&(p->jugador_actual), id_elemento);
+                } else {
+                    trozo = strtok(linea, "-");
+                    trozo = strtok(NULL, "-"); 
+                    if (trozo != NULL) {
+                        s = partida_obtener_sala(p, atoi(trozo));
+                        if (s != NULL) sala_añadir_objeto(s, id_elemento);
+                    }
+                }
+            } 
+            else if (strncmp(linea, "CONEXIÓN:", 10) == 0 || strncmp(linea, "CONEXION:", 9) == 0) {
+                id_elemento = extraer_numero(linea);
+                con = partida_obtener_conexion(p, id_elemento);
+                if (con != NULL) {
+                    if (strstr(linea, "Activa") != NULL) con->activa = 1;
+                    else con->activa = 0;
+                }
+            } 
+            else if (strncmp(linea, "PUZLE:", 6) == 0) {
+                id_elemento = extraer_numero(linea);
+                puz = partida_obtener_puzzle(p, id_elemento);
+                if (puz != NULL) {
+                    if (strstr(linea, "Resuelto") != NULL) puz->resuelto = 1;
+                    else puz->resuelto = 0;
+                }
+            }
+        }
+        fclose(f);
+        printf("\n[SISTEMA]: Partida cargada con exito. Retomando la accion...\n");
+    } else {
+        printf("\n[ERROR]: No se ha encontrado el archivo Partida.txt.\n");
+    }
+    return exito;
+}
