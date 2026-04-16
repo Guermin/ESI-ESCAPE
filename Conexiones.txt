@@ -1,0 +1,11 @@
+C01-01-Laboratorio-02-Pasillo-Bloqueada-P01
+C02-02-Pasillo-04-Biblioteca-Activa-0
+C03-04-Biblioteca-02-Pasillo-Activa-0
+C04-02-Pasillo-03-Despacho-Bloqueada-OB01
+C05-03-Despacho-02-Pasillo-Activa-0
+C06-02-Pasillo-05-Conserjeria-Bloqueada-OB02
+C07-03-Despacho-05-Conserjeria-Bloqueada-P03
+C08-05-Conserjeria-06-Exterior-Bloqueada-P04
+C09-02-Pasillo-01-Laboratorio-Activa-0
+C10-05-Conserjeria-02-Pasillo-Activa-0
+C11-05-Conserjeria-03-Despacho-Activa-0

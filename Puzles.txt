@@ -1,0 +1,4 @@
+P01-Puzle puntero-01-Palabra-Apunto a la memoria pero no soy un cerebro-PUNTERO
+P02-Puzle vector-02-Código-Valor exacto de int v[4]={15,42,100,7} en v[2]-100
+P03-Puzle variable-03-Código-Si int a=5; int *p=&a; *p=8; Cuanto vale a-8
+P04-Puzle free-05-Palabra-Comando para liberar memoria dinamica-FREE

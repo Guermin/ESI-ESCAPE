@@ -1,0 +1,6 @@
+01-Laboratorio de MP-INICIAL-Aqui empieza tu huida.
+02-Pasillo Principal-NORMAL-Un pasillo largo y frio.
+03-Despacho Profesores-NORMAL-Lleno de examenes sin corregir. Hay un conducto al fondo.
+04-Biblioteca ESI-NORMAL-Silencio sepulcral. Ideal para estudiar.
+05-Conserjeria-NORMAL-La ultima barrera de seguridad antes de la calle.
+06-Exterior-SALIDA- La luz del sol te ciega! Has escapado.

@@ -1,4 +1,5 @@
 #include "logica.h"
+#include "ficheros.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -318,3 +319,77 @@ int comprobar_victoria(EstadoPartida *p) {
     return victoria;
 }
 
+
+void logica_arrancar_bucle(EstadoPartida *p) {
+    int en_partida = 1, opcion = 0;
+    Sala *s = NULL;
+    
+    while (en_partida == 1 && comprobar_victoria(p) == 0) {
+        s = partida_obtener_sala(p, p->jugador_actual.id_sala_actual);
+        printf("\n============================================\n");
+        printf(" Menu: Sala %s\n--------------------------------------------\n", s != NULL ? s->nombre : "Desconocida");
+        printf(" 1. Describir sala\n 2. Examinar (objetos/salidas)\n 3. Entrar en otra sala\n");
+        printf(" 4. Coger objeto\n 5. Soltar objeto\n 6. Inventario\n 7. Usar objeto\n");
+        printf(" 8. Resolver puzle\n 9. Guardar partida\n 10. Volver al menu\n");
+        printf("Tu eleccion: ");
+        
+        scanf("%d", &opcion); 
+        limpiar_buffer();
+        
+        if (opcion == 1) accion_describir_sala(p);
+        else if (opcion == 2) accion_examinar(p);
+        else if (opcion == 3) accion_entrar_sala(p);
+        else if (opcion == 4) accion_coger_objeto(p);
+        else if (opcion == 5) accion_soltar_objeto(p);
+        else if (opcion == 6) accion_inventario(p);
+        else if (opcion == 7) accion_usar_objeto(p);
+        else if (opcion == 8) accion_resolver_puzle(p);
+        else if (opcion == 9) ficheros_guardar_partida(p);
+        else if (opcion == 10) en_partida = 0;
+        else printf("\nOpcion no valida.\n");
+    }
+    
+    if (comprobar_victoria(p) == 1) {
+        accion_describir_sala(p); 
+        printf("\n******************************************\n");
+        printf("* HAS ESCAPADO DE LA ESI CON VIDA      *\n");
+        printf("******************************************\n");
+    }
+}
+
+int logica_menu_principal(EstadoPartida *p) {
+    int jugar = 0, eligiendo = 1, opcion = 0, carga_ok = 0;
+    char nombre_temp[50];
+    
+    printf("\n*************************\n* Bienvenido a ESI ESCAPE *\n*************************\n");
+
+    while (eligiendo == 1) {
+        printf("\nMenu Principal:\n-------------------\n1. Nueva partida\n2. Cargar partida\n3. Salir\nOpcion: ");
+        scanf("%d", &opcion); 
+        limpiar_buffer();
+        
+        if (opcion == 1) { 
+            // NUEVA PARTIDA: Borramos la pizarra de la RAM y empezamos de cero
+            strcpy(nombre_temp, p->jugador_actual.nombre); 
+            partida_destruir(p);                           
+            *p = partida_crear(nombre_temp, 1);            
+            ficheros_cargar_todo(p);                       
+            
+            jugar = 1; 
+            eligiendo = 0; 
+        } else if (opcion == 2) {
+            // CARGAR PARTIDA: Sobreescribimos la pizarra con el archivo de guardado
+            carga_ok = ficheros_cargar_partida(p);
+            if (carga_ok == 1) {
+                jugar = 1;
+                eligiendo = 0;
+            }
+        } else if (opcion == 3) { 
+            printf("\nSaliendo...\n"); 
+            eligiendo = 0; 
+        } else {
+            printf("\nOpcion no valida.\n");
+        }
+    }
+    return jugar;
+}
