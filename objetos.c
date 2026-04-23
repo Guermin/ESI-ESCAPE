@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * Constructor funcional para la estructura Objeto.
+ * * @param id           Identificador numérico único del objeto.
+ * @param nombre       Puntero a la cadena que contiene el nombre (paso por referencia constante).
+ * @param descripcion  Puntero a la cadena que contiene la descripción.
+ * @return             Una estructura de tipo Objeto inicializada por copia.
+ */
+
 Objeto objeto_crear(int id, const char *nombre, const char *descripcion) {
     Objeto nuevo_objeto;
     nuevo_objeto.id = id;
@@ -15,7 +23,12 @@ Objeto objeto_crear(int id, const char *nombre, const char *descripcion) {
     
     return nuevo_objeto; 
 }
-
+/**
+ * Muestra los datos del objeto por salida estándar.
+ * * @param obj  Estructura Objeto pasada por VALOR.
+ * Se crea una copia local en el stack de la función, 
+ * protegiendo al objeto original de modificaciones.
+ */
 void objeto_mostrar_info(Objeto obj) {
     printf("\n[ OBJETO: %s ]\n", obj.nombre);
     printf("%s\n", obj.descripcion);

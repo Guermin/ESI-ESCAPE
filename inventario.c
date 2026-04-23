@@ -1,6 +1,10 @@
 #include "inventario.h"
 #include <stdlib.h> 
 
+/**
+ * Inicializa un inventario vacío con memoria dinámica.
+ * @return Una estructura Inventario con memoria reservada en el heap.
+ */
 Inventario inventario_crear() {
     Inventario nuevo_inv;
     nuevo_inv.cantidad = 0;
@@ -13,6 +17,12 @@ Inventario inventario_crear() {
     }
     return nuevo_inv; 
 }
+/**
+ * Añade un objeto al inventario, redimensionando si es necesario.
+ * @param inv       Puntero al inventario (paso por referencia para modificar capacidad/cantidad).
+ * @param id_objeto El identificador que queremos guardar.
+ * @return          1 si se añadió con éxito, 0 si hubo error de memoria.
+ */
 
 int inventario_añadir(Inventario *inv, int id_objeto) {
     int exito = 0;
@@ -34,7 +44,12 @@ int inventario_añadir(Inventario *inv, int id_objeto) {
     }
     return exito; 
 }
-
+/**
+ * Elimina un objeto buscando su ID y desplazando los elementos restantes.
+ * @param inv       Puntero al inventario original.
+ * @param id_objeto ID del objeto a borrar.
+ * @return          1 si se encontró y borró, 0 si no existía.
+ */
 int inventario_quitar(Inventario *inv, int id_objeto) {
     int exito = 0, i = 0, pos = -1;
     
@@ -55,7 +70,12 @@ int inventario_quitar(Inventario *inv, int id_objeto) {
     }
     return exito; 
 }
-
+/**
+ * Comprueba si un objeto existe en el inventario.
+ * @param inv       Pasado por VALOR (copia), ya que no vamos a modificar el inventario.
+ * @param id_objeto ID a buscar.
+ * @return          1 si existe, 0 si no.
+ */
 int inventario_tiene(Inventario inv, int id_objeto) {
     int encontrado = 0, i = 0;
     while (i < inv.cantidad && encontrado == 0) {
@@ -64,7 +84,10 @@ int inventario_tiene(Inventario inv, int id_objeto) {
     }
     return encontrado; 
 }
-
+/**
+ * Libera la memoria dinámica para evitar fugas de memoria (memory leaks).
+ * @param inv       Puntero al inventario que queremos limpiar.
+ */
 void inventario_destruir(Inventario *inv) {
     if (inv->ids_objetos != NULL) {
         free(inv->ids_objetos);
