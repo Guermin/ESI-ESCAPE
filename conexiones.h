@@ -13,22 +13,13 @@ typedef struct {
     int id_puzzle_necesario; // -1 si no necesita puzle
 } Conexion;
 
-/*  Cabecera: Conexion conexion_crear(int id, const char *nombre, int origen, int destino, int activa, int id_obj, int id_puz)
-    Precondición:  'id', 'origen', y 'destino' >= 0. 'nombre' no es NULL.
-    Postcondición: Devuelve una Conexion inicializada. 
-*/
+
 Conexion conexion_crear(int id, const char *nombre, int origen, int destino, int activa, int id_obj, int id_puz);
 
-/*  Cabecera: int conexion_intentar_abrir_objeto(Conexion *c, int id_objeto)
-    Precondición:  'c' es puntero a conexión válida. 'id_objeto' >= 0.
-    Postcondición: Comprueba si el objeto coincide con la cerradura. Si es así, pone 'activa' a 1 y devuelve 1. Si no, devuelve 0. 
-*/
+
 int conexion_intentar_abrir_objeto(Conexion *c, int id_objeto);
 
-/*  Cabecera: int conexion_intentar_abrir_puzzle(Conexion *c, int id_puzzle)
-    Precondición:  'c' es puntero a conexión válida. 'id_puzzle' >= 0.
-    Postcondición: Comprueba si el puzle coincide. Si es así, pone 'activa' a 1 y devuelve 1. 
-*/
+
 int conexion_intentar_abrir_puzzle(Conexion *c, int id_puzzle);
 
 #endif
