@@ -30,12 +30,12 @@ Sala sala_crear(int id, const char *nombre, const char *descripcion, TipoSala ti
 }
 
 /**
- * @brief Añade un objeto al primer hueco disponible en la sala.
+ * @brief Anade un objeto al primer hueco disponible en la sala.
  * * @param s         Puntero a la sala donde se va a dejar el objeto.
- * @param id_objeto Identificador del objeto que se desea añadir.
- * * @return int 1 si se ha añadido con éxito, 0 si la sala está llena (no hay huecos a -1).
+ * @param id_objeto Identificador del objeto que se desea anadir.
+ * * @return int 1 si se ha anadido con éxito, 0 si la sala está llena (no hay huecos a -1).
  */
-int sala_añadir_objeto(Sala *s, int id_objeto) {
+int sala_anadir_objeto(Sala *s, int id_objeto) {
     int exito = 0, i = 0;
     while (i < MAX_OBJETOS_SALA && exito == 0) { 
         if (s->id_objetos[i] == -1) { 
@@ -81,12 +81,12 @@ int sala_tiene_objeto(Sala s, int id_objeto) {
 }
 
 /**
- * @brief Añade un puzle al primer hueco disponible en la sala.
+ * @brief Anade un puzle al primer hueco disponible en la sala.
  * * @param s         Puntero a la sala donde se ubicará el puzle.
- * @param id_puzzle Identificador del puzle a añadir.
- * * @return int 1 si se ha añadido con éxito, 0 si no quedan huecos disponibles.
+ * @param id_puzzle Identificador del puzle a anadir.
+ * * @return int 1 si se ha anadido con éxito, 0 si no quedan huecos disponibles.
  */
-int sala_añadir_puzzle(Sala *s, int id_puzzle) {
+int sala_anadir_puzzle(Sala *s, int id_puzzle) {
     int exito = 0, i = 0;
     while (i < MAX_PUZZLES_SALA && exito == 0) { 
         if (s->id_puzzles[i] == -1) {

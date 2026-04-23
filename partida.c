@@ -18,7 +18,7 @@ void partida_destruir(EstadoPartida *p) {
     jugador_destruir(&(p->jugador_actual));
 }
 
-int partida_añadir_sala(EstadoPartida *p, Sala s) {
+int partida_anadir_sala(EstadoPartida *p, Sala s) {
     int exito = 0;
     if (p->num_salas < MAX_SALAS_PARTIDA) {
         p->salas[p->num_salas] = s;
@@ -30,7 +30,7 @@ int partida_añadir_sala(EstadoPartida *p, Sala s) {
 
 
 
-int partida_añadir_conexion(EstadoPartida *p, Conexion c) {
+int partida_anadir_conexion(EstadoPartida *p, Conexion c) {
     int exito = 0;
     if (p->num_conexiones < MAX_CONEXIONES_PARTIDA) {
         p->conexiones[p->num_conexiones] = c;
@@ -41,7 +41,7 @@ int partida_añadir_conexion(EstadoPartida *p, Conexion c) {
 }
 
 
-int partida_añadir_objeto(EstadoPartida *p, Objeto obj) {
+int partida_anadir_objeto(EstadoPartida *p, Objeto obj) {
     int exito = 0;
     if (p->num_objetos < MAX_OBJETOS_PARTIDA) {
         p->objetos[p->num_objetos] = obj;
@@ -53,7 +53,7 @@ int partida_añadir_objeto(EstadoPartida *p, Objeto obj) {
 
 
 
-int partida_añadir_puzzle(EstadoPartida *p, Puzzle puz) {
+int partida_anadir_puzzle(EstadoPartida *p, Puzzle puz) {
     int exito = 0;
     if (p->num_puzzles < MAX_PUZZLES_PARTIDA) {
         p->puzzles[p->num_puzzles] = puz;

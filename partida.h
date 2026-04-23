@@ -39,10 +39,10 @@ EstadoPartida partida_crear(const char *nombre_jugador, int id_sala_inicio);
 void partida_destruir(EstadoPartida *p);
 
 /* Funciones de inserción, devuelve 1 en caso de exito, o 0 en caso de que supere el limite establecido en las macros. */
-int partida_añadir_sala(EstadoPartida *p, Sala s);
-int partida_añadir_conexion(EstadoPartida *p, Conexion c);
-int partida_añadir_objeto(EstadoPartida *p, Objeto obj);
-int partida_añadir_puzzle(EstadoPartida *p, Puzzle puz);
+int partida_anadir_sala(EstadoPartida *p, Sala s);
+int partida_anadir_conexion(EstadoPartida *p, Conexion c);
+int partida_anadir_objeto(EstadoPartida *p, Objeto obj);
+int partida_anadir_puzzle(EstadoPartida *p, Puzzle puz);
 
 /* Funciones de búsqueda, devuelven el puntero en memoria del elemento, o null en caso de que no exista. */
 Sala* partida_obtener_sala(EstadoPartida *p, int id);

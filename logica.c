@@ -210,7 +210,7 @@ void accion_soltar_objeto(EstadoPartida *p) {
     limpiar_buffer();
 
     if (jugador_tiene_objeto(p->jugador_actual, id_obj) == 1) {
-        exito = sala_añadir_objeto(s, id_obj);
+        exito = sala_anadir_objeto(s, id_obj);
         if (exito == 1) {
             jugador_soltar_objeto(&(p->jugador_actual), id_obj);
             printf("Objeto tirado.\n");

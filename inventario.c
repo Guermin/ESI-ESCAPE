@@ -18,13 +18,13 @@ Inventario inventario_crear() {
     return nuevo_inv; 
 }
 /**
- * Añade un objeto al inventario, redimensionando si es necesario.
+ * Anade un objeto al inventario, redimensionando si es necesario.
  * @param inv       Puntero al inventario (paso por referencia para modificar capacidad/cantidad).
  * @param id_objeto El identificador que queremos guardar.
- * @return          1 si se añadió con éxito, 0 si hubo error de memoria.
+ * @return          1 si se anadió con éxito, 0 si hubo error de memoria.
  */
 
-int inventario_añadir(Inventario *inv, int id_objeto) {
+int inventario_anadir(Inventario *inv, int id_objeto) {
     int exito = 0;
     int *temp = NULL; 
     

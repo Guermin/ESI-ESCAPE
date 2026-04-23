@@ -31,13 +31,13 @@ int jugador_mover(Jugador *j, int id_nueva_sala) {
 }
 
 /**
- * @brief Añade un objeto al inventario (mochila) del jugador.
+ * @brief Anade un objeto al inventario (mochila) del jugador.
  * * @param j         Puntero al jugador que recoge el objeto.
  * @param id_objeto Identificador del objeto a recoger.
- * * @return int Devuelve el resultado de inventario_añadir (típicamente 1 si hay éxito, 0 si falla).
+ * * @return int Devuelve el resultado de inventario_anadir (típicamente 1 si hay éxito, 0 si falla).
  */
 int jugador_recoger_objeto(Jugador *j, int id_objeto) {
-    int exito = inventario_añadir(&(j->mochila), id_objeto); 
+    int exito = inventario_anadir(&(j->mochila), id_objeto); 
     return exito; 
 }
 

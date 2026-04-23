@@ -18,9 +18,9 @@ typedef struct {
 Inventario inventario_crear();
 
 /* * PRE:  'inv' es puntero válido. 'id_objeto' >= 0.
- * POST: Añade el ID al final. Si se queda sin capacidad, hace un realloc. Devuelve 1 o 0. 
+ * POST: Anade el ID al final. Si se queda sin capacidad, hace un realloc. Devuelve 1 o 0. 
  */
-int inventario_añadir(Inventario *inv, int id_objeto);
+int inventario_anadir(Inventario *inv, int id_objeto);
 
 /* * PRE:  'inv' es puntero válido. 'id_objeto' >= 0.
  * POST: Borra el ID y desplaza a la izquierda todos los elementos restantes. Devuelve 1 o 0. 

@@ -24,13 +24,13 @@ typedef struct{
 
 Sala sala_crear(int id, const char *nombre, const char *descripcion, TipoSala tipo);
 
-int sala_añadir_objeto(Sala *s, int id_objeto);
+int sala_anadir_objeto(Sala *s, int id_objeto);
 
 int sala_quitar_objeto(Sala *s, int id_objeto);
 
 int sala_tiene_objeto(Sala s, int id_objeto);
 
-int sala_añadir_puzzle(Sala *s, int id_puzzle);
+int sala_anadir_puzzle(Sala *s, int id_puzzle);
 
 int sala_tiene_puzzle(Sala s, int id_puzzle);
 

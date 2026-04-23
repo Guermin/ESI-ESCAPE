@@ -55,7 +55,7 @@ int cargar_salas(EstadoPartida *p) {
                 if (trozo != NULL) strcpy(d, trozo);
                 
                 Sala nueva = sala_crear(id, n, d, (TipoSala)tipo);
-                partida_añadir_sala(p, nueva);
+                partida_anadir_sala(p, nueva);
             }
         }
         fclose(f);
@@ -94,10 +94,10 @@ int cargar_objetos(EstadoPartida *p) {
                     sala_loc = atoi(trozo);
                     
                     Objeto nuevo = objeto_crear(id, n, d);
-                    partida_añadir_objeto(p, nuevo);
+                    partida_anadir_objeto(p, nuevo);
                     
                     dest = partida_obtener_sala(p, sala_loc);
-                    if (dest != NULL) sala_añadir_objeto(dest, id);
+                    if (dest != NULL) sala_anadir_objeto(dest, id);
                 }
             }
         }
@@ -143,10 +143,10 @@ int cargar_puzzles(EstadoPartida *p) {
                 if (trozo != NULL) {
                     strcpy(sol, trozo);
                     Puzzle nuevo = puzzle_crear(id, preg, sol, (TipoPuzzle)tipo);
-                    partida_añadir_puzzle(p, nuevo);
+                    partida_anadir_puzzle(p, nuevo);
                     
                     dest = partida_obtener_sala(p, sala_loc);
-                    if (dest != NULL) sala_añadir_puzzle(dest, id);
+                    if (dest != NULL) sala_anadir_puzzle(dest, id);
                 }
             }
         }
@@ -199,7 +199,7 @@ int cargar_conexiones(EstadoPartida *p) {
                     else if (trozo[0] == 'P' || trozo[0] == 'p') id_puz = extraer_numero(trozo);
                     
                     Conexion nueva = conexion_crear(id, n, orig, dest, act, id_obj, id_puz);
-                    partida_añadir_conexion(p, nueva);
+                    partida_anadir_conexion(p, nueva);
                 }
             }
         }
@@ -302,7 +302,7 @@ int ficheros_cargar_partida(EstadoPartida *p) {
                     trozo = strtok(NULL, "-"); 
                     if (trozo != NULL) {
                         s = partida_obtener_sala(p, atoi(trozo));
-                        if (s != NULL) sala_añadir_objeto(s, id_elemento);
+                        if (s != NULL) sala_anadir_objeto(s, id_elemento);
                     }
                 }
             } 
